@@ -23,5 +23,6 @@ export default {
       // Aquí puedes añadir plugins de Tailwind si los necesitas
       // require('@tailwindcss/forms'),
       require('@tailwindcss/typography'),
+      require('tailwind-scrollbar'),
     ],
   }

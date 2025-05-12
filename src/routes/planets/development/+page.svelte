@@ -282,7 +282,8 @@ function getPathData(easingFn: (t: number) => number): string {
 // Ensures the ball stays within the padded track
 const trackPaddingRem = 0.5;
 const ballDiameterRem = 1.5;
-$: ballLeftStyle = \`calc(\${trackPaddingRem}rem + \${$ballPositionX} * (100% - \${2 * trackPaddingRem + ballDiameterRem}rem))\`;
+$: ballLeftStyle = \`calc(\${trackPaddingRem}rem + \${$ballPositionX}
+                    * (100% - \${2 * trackPaddingRem + ballDiameterRem}rem))\`;
 
 // The HTML part uses $ballPositionX to update the ball's 'left' style
 // and getPathData() to draw the SVG curve dynamically.
@@ -437,41 +438,69 @@ $: ballLeftStyle = \`calc(\${trackPaddingRem}rem + \${$ballPositionX} * (100% - 
         <section
             id="portfolio-deconstructed"
             class="mb-16 sm:mb-24"
-            in:fly={{ y: 50, duration: 600, delay: 500, easing: quintOut }}
+            in:fly={{ y: 50, duration: 600, delay: 500, easing: quintOut }} 
         >
             <h2 class="text-3xl sm:text-4xl font-bold text-slate-100 mb-10 text-center sm:text-left border-b-2 border-emerald-500/30 pb-3">
                 III. Portfolio <span class="text-emerald-500">Deconstructed</span>
             </h2>
 
-            <div class="space-y-12">
+            <div class="space-y-12 md:space-y-16">
+
                 <!-- Snippet 1: Ripple Action -->
-                <div class="prose prose-sm sm:prose-base prose-invert max-w-none prose-code:text-xs">
-                    <h3 class="text-xl sm:text-2xl text-slate-100 font-semibold">Reusable Ripple Effect (Svelte Action)</h3>
-                    <p class="text-slate-300">
-                        To provide consistent click feedback across interactive elements like buttons, I created a Svelte Action.
-                        This encapsulates the logic for generating and animating a ripple effect directly on the DOM element it's applied to.
-                        It uses CSS custom properties for theming and cleans up after itself.
+                <article class="prose prose-sm sm:prose-base prose-invert max-w-none
+                                prose-headings:text-slate-100 prose-headings:font-semibold prose-headings:mb-3
+                                prose-p:text-slate-300 prose-p:leading-relaxed
+                                prose-a:text-sky-400 hover:prose-a:text-sky-300
+                                prose-strong:text-slate-100
+                                prose-code:bg-slate-700 prose-code:text-amber-400 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:text-xs prose-code:font-mono">
+                    
+                    <h3 class="text-xl sm:text-2xl !mt-0">Reusable Ripple Effect (Svelte Action)</h3>
+                    <p>
+                        To provide consistent click feedback across interactive elements like buttons, I developed a Svelte Action named <code class="font-mono">ripple</code>.
+                        Actions in Svelte allow you to encapsulate reusable DOM manipulation logic. This particular action:
                     </p>
-                    <CodeBlock code={rippleActionCode} language={"typescript" as unknown as LanguageType<string>} title="sSvelte Action: Ripple Effect (ripple.ts)" />
-                    <p class="text-xs text-slate-400 mt-2">Key features: dynamic ripple creation, CSS-driven animation, cleanup on destroy.</p>
-                </div>
+                    <ul>
+                        <li>Dynamically creates a <code><span></code> element on <code>mousedown</code> to represent the ripple.</li>
+                        <li>Calculates the ripple's size and position based on the click event and button dimensions.</li>
+                        <li>Applies styles and triggers a CSS animation (defined globally) for the visual effect.</li>
+                        <li>Uses CSS Custom Properties passed via options, allowing for customizable duration, color, and easing.</li>
+                        <li>Includes a <code class="font-mono">destroy</code> method to clean up event listeners when the button is unmounted, preventing memory leaks.</li>
+                        <li>Requires the host element (button) to have <code class="font-mono">position: relative</code> and <code class="font-mono">overflow: hidden</code> for correct visual behavior.</li>
+                    </ul>
+                    <CodeBlock code={rippleActionCode} language={"typescript" as unknown as LanguageType<string>} title="Svelte Action: Ripple Effect (ripple.ts)" />
+                    <p class="text-xs text-slate-400 mt-3 italic">
+                        This approach demonstrates creating modular, reusable DOM behaviors in Svelte, enhancing UI consistency.
+                    </p>
+                </article>
+
+                <hr class="my-8 sm:my-12 border-slate-700/50">
 
                 <!-- Snippet 2: Easing Demo Logic -->
-                <div class="prose prose-sm sm:prose-base prose-invert max-w-none prose-code:text-xs">
-                    <h3 class="text-xl sm:text-2xl text-slate-100 font-semibold mt-8">Interactive Easing Demonstration</h3>
-                    <p class="text-slate-300">
-                        This snippet from the "Motion Core" planet shows how Svelte's <code class="font-mono">tweened</code> store and easing functions
-                        are used to animate an element's position. The <code class="font-mono">getPathData</code> function dynamically generates
-                        an SVG path to visualize the selected easing curve.
+                 <article class="prose prose-sm sm:prose-base prose-invert max-w-none
+                                prose-headings:text-slate-100 prose-headings:font-semibold prose-headings:mb-3
+                                prose-p:text-slate-300 prose-p:leading-relaxed
+                                prose-a:text-sky-400 hover:prose-a:text-sky-300
+                                prose-strong:text-slate-100
+                                prose-code:bg-slate-700 prose-code:text-amber-400 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:text-xs prose-code:font-mono">
+                    
+                    <h3 class="text-xl sm:text-2xl !mt-0">Interactive Easing Demonstration Logic</h3>
+                    <p>
+                        The easing demonstration on the "Motion Core" planet utilizes Svelte's <code class="font-mono">tweened</code> store for smooth animation
+                        and dynamically generates an SVG path to visualize easing curves. Key aspects include:
                     </p>
+                    <ul>
+                        <li>An array of easing function objects, each with a name, the Svelte easing function (<code class="font-mono">fn</code>), and a description.</li>
+                        <li>A <code class="font-mono">tweened</code> store (<code class="font-mono">ballPositionX</code>) whose value (from 0 to 1) represents the animated property. Its easing function is updated dynamically.</li>
+                        <li>The <code class="font-mono">animateBall</code> async function resets the ball's position and then tweens it to the end using the selected easing.</li>
+                        <li>The <code class="font-mono">getPathData</code> function iterates from 0 to 1 (normalized time <code class="font-mono">t</code>), applies the selected easing function to <code class="font-mono">t</code>, and constructs an SVG path string.
+                        This path is then bound to the <code class="font-mono">d</code> attribute of an SVG <code class="font-mono"><path></code> element.</li>
+                        <li>A reactive Svelte statement (<code class="font-mono">$: ballLeftStyle = ...</code>) calculates the CSS <code class="font-mono">left</code> property for the animated ball using <code class="font-mono">calc()</code> to ensure it stays within its track.</li>
+                    </ul>
                     <CodeBlock code={easingDemoCode} language={"typescript" as unknown as LanguageType<string>} title="EasingDemo.svelte <script> (Key Logic)" />
-                     <p class="text-xs text-slate-400 mt-2">Highlights: reactive stores for animation, dynamic SVG generation.</p>
-                </div>
-
-                <!-- Añade más snippets y explicaciones aquí -->
-
-            </div>
-        </section>
+                    <p class="text-xs text-slate-400 mt-3 italic">
+                        This showcases reactive programming, dynamic SVG manipulation, and the power of Svelte's motion utilities.
+                    </p>
+                </article>
 
 
         <footer class="text-center mt-16 sm:mt-24 pb-8" in:fly={{ y: 50, duration: 500, delay:600 }}>

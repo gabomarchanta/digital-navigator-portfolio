@@ -55,3 +55,33 @@
     animation: ripple-animation-kf var(--ripple-duration, 0.6s) var(--ripple-easing, linear) forwards;
     pointer-events: none;
 }
+
+/* Estilos globales para la barra de scroll (aplicarán a todos los elementos con scroll) */
+/* Para navegadores WebKit (Chrome, Safari, Edge, Opera) */
+::-webkit-scrollbar {
+    width: 8px;  /* Ancho para scroll vertical */
+    height: 8px; /* Altura para scroll horizontal */
+}
+
+::-webkit-scrollbar-track {
+    background: theme('colors.slate.800 / 0.5'); /* Color del riel, usa tu color de Tailwind */
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: theme('colors.slate.700'); /* Color del pulgar */
+    border-radius: 10px;
+    /* border: 2px solid theme('colors.slate.800 / 0.5'); Opcional: un borde alrededor del pulgar */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: theme('colors.slate.600'); /* Color del pulgar al hacer hover */
+}
+
+/* Para Firefox */
+/* Necesitas especificar 'thin' o 'auto' para scrollbar-width
+   antes de que scrollbar-color tenga efecto. */
+* { /* Aplica a todos los elementos, o sé más específico con una clase */
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.slate.700') theme('colors.slate.800 / 0.5'); /* thumb track */
+}

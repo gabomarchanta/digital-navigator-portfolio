@@ -30,6 +30,7 @@
 		"prettier-plugin-tailwindcss": "^0.6.11",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
+		"tailwind-scrollbar": "^4.0.2",
 		"tailwindcss": "^4.0.0",
 		"typescript": "^5.0.0",
 		"typescript-eslint": "^8.20.0",
@@ -38,6 +39,7 @@
 	"dependencies": {
 		"highlight.js": "^11.11.1",
 		"keen-slider": "^6.8.6",
+		"svelte-heros-v2": "^2.0.1",
 		"svelte-highlight": "^7.8.3"
 	}
 }
