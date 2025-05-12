@@ -1,0 +1,57 @@
+@import "tailwindcss"; /* Asegúrate que esta es la primera línea si no estaba ya */
+
+@theme {
+  /* Aquí puedes definir tus colores personalizados y otras extensiones */
+  /* Esto es específico de Tailwind v4 y el plugin @tailwindcss/vite */
+
+  /* Colores de Marca */
+  --color-brand-cyan: #22d3ee;
+  --color-brand-pink: #ec4899;
+  --color-brand-purple: #a855f7;
+
+  /* Colores del Tema Espacial */
+  --color-space-darkest: #0f172a;     /* slate-900 */
+  --color-space-deep-purple: #3b0764; /* purple-950 */
+  --color-space-light-text: #d1d5db;  /* slate-300 */
+  --color-space-lighter-text: #e5e7eb;/* slate-200 */
+
+  /* También puedes extender otras cosas como fuentes, espaciado, etc. */
+  /* font-family: {
+    sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+    display: ['Lexend', ...defaultTheme.fontFamily.sans],
+  } */
+}
+
+/* También puedes poner estilos globales aquí si es necesario */
+/*body {*/
+  /* font-family: theme(fontFamily.sans); */ /* Si defines familias de fuentes arriba */
+/*}*/
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-50px);
+    }
+}
+    .animate-float-ship {
+        animation: float 6s ease-in-out infinite;
+}
+
+@keyframes ripple-animation-kf {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.ripple-effect-span {
+    position: absolute;
+    border-radius: 50%;
+    background-color: var(--ripple-bg-color, rgba(255, 255, 255, 0.3));
+    transform: scale(0);
+    /* La animación se define para ejecutarse una vez y mantener el estado final (opacity: 0) */
+    animation: ripple-animation-kf var(--ripple-duration, 0.6s) var(--ripple-easing, linear) forwards;
+    pointer-events: none;
+}
